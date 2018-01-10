@@ -1,0 +1,19 @@
+spring:
+  profiles: docker
+  datasource:
+    platform: mysql
+    driver-class-name:  com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl: 
+      defaultZone: http://discovery:8761/eureka/
+logging:
+  level:
+    com.auth0.spring.security: DEBUG

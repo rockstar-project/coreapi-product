@@ -1,0 +1,37 @@
+version: '2'
+
+services:
+  productapi:
+    build: .
+    image: $DOCKER_NAMESPACE/coreapi-product
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_USERNAME=rockstar
+      - SPRING_DATASOURCE_PASSWORD=rockstar123
+      - 'SPRING_DATASOURCE_URL=jdbc:mysql://productmysql:3306/rockstar_db_product'
+      - AUTH0_ISSUER=https://rockstar.auth0.com/
+      - AUTH0_AUDIENCE=http://api.rock-star.io/v1
+    links:
+      - discovery
+      - productmysql
+  productmysql:
+    image: $DOCKER_NAMESPACE/datastore-product
+    volumes:
+      - /data
+    environment:
+      - MYSQL_DATABASE=rockstar_db_product
+      - MYSQL_USER=rockstar
+      - MYSQL_PASSWORD=rockstar123
+      - MYSQL_ROOT_PASSWORD=rockstar123
+  gateway:
+    image: $DOCKER_NAMESPACE/api-gateway
+    ports:
+      - 80:8765
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    links:
+      - discovery
+  discovery:
+    image: $DOCKER_NAMESPACE/discovery-service
+    ports:
+      - 8761:8761
