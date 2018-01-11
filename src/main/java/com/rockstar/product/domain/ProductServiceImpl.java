@@ -30,15 +30,15 @@ public class ProductServiceImpl implements ProductService {
 		return StreamSupport.stream(productIterable.spliterator(), false).collect(Collectors.toList());
 	}
 	
-	public Page<Product> search(String query, Boolean featured, String architecture, Pageable pageRequest) {
+	public Page<Product> search(String query, Boolean featured, String status, String organization, Pageable pageRequest) {
 		Page<Product> productsPage = null;
 		ProductSearchSpecification productSearchSpecification = null;
 
 		productSearchSpecification = new ProductSearchSpecification();
 		productSearchSpecification.setKeyword(query);
 		productSearchSpecification.setFeatured(featured);
-		productSearchSpecification.setArchitecture(architecture);
-			
+		productSearchSpecification.setStatus(status);
+		productSearchSpecification.setOrganization(organization);
 		productsPage = this.productRepository.findAll(productSearchSpecification, pageRequest);
 	
 		return productsPage;

@@ -14,7 +14,9 @@ public class ProductSearchSpecification implements Specification<Product> {
 	
 	private String keyword;
 	private Boolean featured;
-	private String architecture;
+	private String status;
+	private String author;
+	private String organization;
 	
 	public ProductSearchSpecification() {
 	}
@@ -27,20 +29,36 @@ public class ProductSearchSpecification implements Specification<Product> {
 		this.keyword = keyword;
 	}
 
-	public String getArchitecture() {
-		return architecture;
-	}
-
-	public void setArchitecture(String architecture) {
-		this.architecture = architecture;
-	}
-
 	public Boolean getFeatured() {
 		return featured;
 	}
 
 	public void setFeatured(Boolean featured) {
 		this.featured = featured;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public String getOrganization() {
+		return organization;
+	}
+
+	public void setOrganization(String organization) {
+		this.organization = organization;
 	}
 
 	public Predicate toPredicate(Root<Product> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
@@ -54,8 +72,14 @@ public class ProductSearchSpecification implements Specification<Product> {
 	    if (this.getFeatured() != null) {
 	        predicateList.add(builder.equal(root.get("featured"), this.getFeatured()));
 	    }
-	    if (this.getArchitecture() != null && !this.getArchitecture().isEmpty()) {
-	        predicateList.add(builder.equal(root.get("architecture"), this.getArchitecture()));
+	    if (this.getAuthor() != null && !this.getAuthor().isEmpty()) {
+	        predicateList.add(builder.equal(root.get("author"), this.getAuthor()));
+	    }
+	    if (this.getStatus() != null && !this.getStatus().isEmpty()) {
+	        predicateList.add(builder.equal(root.get("status"), this.getStatus()));
+	    }
+	    if (this.getOrganization() != null) {
+	        predicateList.add(builder.equal(root.get("organization"), this.getOrganization()));
 	    }
 	    
 	    Predicate[] predicates = new Predicate[predicateList.size()];

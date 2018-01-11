@@ -67,14 +67,15 @@ public class ProductController {
 	@RequestMapping(value="/search", method=RequestMethod.GET)
 	public HttpEntity<PagedResources<ProductInfoResource>> search(@RequestParam(name = "q", required = false) String queryTerm,
 			@RequestParam(name = "featured", required = false) Boolean featured,
-			@RequestParam(name = "architecture", required = false) String architecture,
+			@RequestParam(name = "status", required = false) String status,
+			@RequestParam(name = "organization", required = false) String organization,
 			@PageableDefault(page = 0, size = 10, sort="title") Pageable pageable, 
 			PagedResourcesAssembler pageResourcesAssembler) {
 		
 		Page<Product> productsPage = null;
 		PagedResources<ProductInfoResource> productPagedResources = null;
 		
-		productsPage = this.productService.search(queryTerm, featured, architecture, pageable);
+		productsPage = this.productService.search(queryTerm, featured, status, organization, pageable);
 		productPagedResources = pageResourcesAssembler.toResource(productsPage);
 		return new ResponseEntity<PagedResources<ProductInfoResource>>(productPagedResources, HttpStatus.OK);
 	}
