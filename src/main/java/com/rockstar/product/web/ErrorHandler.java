@@ -4,16 +4,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.ServletRequestBindingException;
@@ -26,12 +28,40 @@ import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
 import com.rockstar.product.service.NotFoundException;
 import com.rockstar.product.service.NotUniqueException;
 
+
 @ControllerAdvice
 public class ErrorHandler {
 
-	@Inject private MessageSource messageSource;
+	@Autowired private MessageSource messageSource;
 	
 	public ErrorHandler() {
+	}
+	
+	@ExceptionHandler({BadCredentialsException.class})
+	@ResponseStatus(HttpStatus.UNAUTHORIZED)
+	public @ResponseBody ErrorResource handleUnauthorized(BadCredentialsException unauthorizedex) {
+		ErrorResource error = new ErrorResource();
+		error.setError("unauthorized");
+		error.setDescription(unauthorizedex.getMessage());
+		return error;
+	}
+	
+	@ExceptionHandler({AccessDeniedException.class})
+	@ResponseStatus(HttpStatus.FORBIDDEN)
+	public @ResponseBody ErrorResource handleAccessDeniedException(AccessDeniedException accessdeniedex) {
+		ErrorResource error = new ErrorResource();
+		error.setError("access_denied");
+		error.setDescription(accessdeniedex.getMessage());
+		return error;
+	}
+	
+	@ExceptionHandler({HttpMediaTypeNotSupportedException.class})
+	@ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
+	public @ResponseBody ErrorResource handleMediaTypeNotAcceptableException(HttpMediaTypeNotSupportedException mediatypenotsupportedex) {
+		ErrorResource error = new ErrorResource();
+		error.setError("unsupported_mediatype");
+		error.setDescription(mediatypenotsupportedex.getMessage());
+		return error;
 	}
 	
 	@ExceptionHandler({NotFoundException.class})
@@ -39,7 +69,7 @@ public class ErrorHandler {
 	public @ResponseBody ErrorResource handleNotFound(NotFoundException notfoundex) {
 		ErrorResource error = new ErrorResource();
 		error.setError("not_found");
-		error.setDescription(this.getText(notfoundex.getMessage()));
+		error.setDescription(notfoundex.getMessage());
 		return error;
 	}
 	
@@ -47,8 +77,8 @@ public class ErrorHandler {
 	@ResponseStatus(HttpStatus.CONFLICT)
 	public @ResponseBody ErrorResource handleNotUnique(NotUniqueException notuniqueex) {
 		ErrorResource error = new ErrorResource();
-		error.setError("duplicate");
-		error.setDescription(this.getText(notuniqueex.getMessage()));
+		error.setError("duplicate_resource");
+		error.setDescription(notuniqueex.getMessage());
 		return error;
 	}
 	
@@ -87,20 +117,18 @@ public class ErrorHandler {
 	}
 	
 	@ExceptionHandler({HttpMessageNotReadableException.class})
-	@ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public @ResponseBody ErrorResource handleMessageNotReadableException(HttpMessageNotReadableException messagenotreadableex) {
 		ErrorResource error = null;
-		String unrecognizedPropertyName = null;
 		Throwable mostSpecificCause = messagenotreadableex.getMostSpecificCause();
 		UnrecognizedPropertyException unrecognizedPropertyException = null;
 		
 		if (mostSpecificCause != null) {
 			if (mostSpecificCause instanceof UnrecognizedPropertyException) {
 				unrecognizedPropertyException = (UnrecognizedPropertyException) mostSpecificCause;
-				unrecognizedPropertyName = unrecognizedPropertyException.getPropertyName();
 				error = new ErrorResource();
 				error.setError("unrecognized_property");
-				error.setDescription(this.getText("UnrecognizedProperty", unrecognizedPropertyName));
+				error.setDescription(unrecognizedPropertyException.getMessage());
 			} else {
 				error = new ErrorResource();
 				error.setError("unreadable_message");
@@ -113,27 +141,18 @@ public class ErrorHandler {
 	@ExceptionHandler
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public @ResponseBody ErrorResource handleMissingRequestParameterException(MissingServletRequestParameterException missingparameterex) {
-		ErrorResource error = new ErrorResource();
-		error.setError("missing_parameter");
-		error.setDescription(this.getText("MissingParameter", missingparameterex.getParameterName()));
-		return error;
+		ErrorResource errorDto = new ErrorResource();
+		errorDto.setError("missing_parameter");
+		errorDto.setDescription(missingparameterex.getMessage());
+		return errorDto;
 	}
 	
 	@ExceptionHandler
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public @ResponseBody ErrorResource handleRequestBindingException(ServletRequestBindingException requestbindingex, HttpServletResponse response) throws IOException {
 		ErrorResource error = new ErrorResource();
-		error.setError("missing_parameter");
-		error.setDescription(this.getText("MissingParameter", requestbindingex.getMessage()));
-		return error;
-	}
-	
-	@ExceptionHandler
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public @ResponseBody ErrorResource  handleRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException requestmethodnotsupportedex, HttpServletResponse response) throws IOException {
-		ErrorResource error = new ErrorResource();
-		error.setError("not_supported");
-		error.setDescription(requestmethodnotsupportedex.getMessage());
+		error.setError("invalid_parameter");
+		error.setDescription(requestbindingex.getMessage());
 		return error;
 	}
 	

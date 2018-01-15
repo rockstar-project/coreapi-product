@@ -14,6 +14,7 @@ public class ProductSearchSpecification implements Specification<Product> {
 	
 	private String keyword;
 	private Boolean featured;
+	private String visibility;
 	private String status;
 	private String author;
 	private String organization;
@@ -45,6 +46,14 @@ public class ProductSearchSpecification implements Specification<Product> {
 		this.status = status;
 	}
 
+	public String getVisibility() {
+		return visibility;
+	}
+
+	public void setVisibility(String visibility) {
+		this.visibility = visibility;
+	}
+
 	public String getAuthor() {
 		return author;
 	}
@@ -67,10 +76,13 @@ public class ProductSearchSpecification implements Specification<Product> {
 	    predicateList = new ArrayList<Predicate>();
 	    
 	    if (this.getKeyword() != null && !this.getKeyword().isEmpty()) {
-	        predicateList.add(builder.like(root.get("title"), "%" + this.getKeyword() + "%"));
+	        predicateList.add(builder.like(builder.lower(root.<String>get("title")), "%" + this.getKeyword() + "%"));
 	    }
 	    if (this.getFeatured() != null) {
 	        predicateList.add(builder.equal(root.get("featured"), this.getFeatured()));
+	    }
+	    if (this.getVisibility() != null && !this.getVisibility().isEmpty()) {
+	        predicateList.add(builder.equal(root.get("visibility"), this.getVisibility()));
 	    }
 	    if (this.getAuthor() != null && !this.getAuthor().isEmpty()) {
 	        predicateList.add(builder.equal(root.get("author"), this.getAuthor()));

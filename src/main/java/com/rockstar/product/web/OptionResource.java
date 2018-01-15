@@ -8,6 +8,7 @@ public class OptionResource extends ResourceSupport {
 	private String value;
 	private String title;
 	private String image;
+	private String[] tags;
 	private String version;
 	
 	public OptionResource() {
@@ -43,6 +44,14 @@ public class OptionResource extends ResourceSupport {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public String[] getTags() {
+		return tags;
+	}
+
+	public void setTags(String[] tags) {
+		this.tags = tags;
 	}
 
 	public String getVersion() {

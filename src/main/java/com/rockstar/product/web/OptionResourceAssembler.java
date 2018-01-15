@@ -6,6 +6,7 @@ import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.LinkBuilder;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import com.rockstar.product.domain.Option;
 
@@ -28,6 +29,9 @@ public class OptionResourceAssembler extends ResourceAssemblerSupport<Option, Op
 			optionResource.setValue(option.getValue());
 			optionResource.setTitle(option.getTitle());
 			optionResource.setImage(option.getImage());
+			if (!StringUtils.isEmpty(option.getTags())) {
+				optionResource.setTags(StringUtils.commaDelimitedListToStringArray(option.getTags()));
+			}
 			optionResource.setVersion(option.getVersion());
 			optionResource.add(templateLinkBuilder.slash("options").slash(option.getId()).withSelfRel());
 		}
@@ -43,6 +47,9 @@ public class OptionResourceAssembler extends ResourceAssemblerSupport<Option, Op
 			option.setValue(optionResource.getValue());
 			option.setTitle(optionResource.getTitle());
 			option.setImage(optionResource.getImage());
+			if (!StringUtils.isEmpty(optionResource.getTags())) {
+				option.setTags(StringUtils.arrayToCommaDelimitedString(optionResource.getTags()));
+			}
 			option.setVersion(optionResource.getVersion());
 		}
 		return option;

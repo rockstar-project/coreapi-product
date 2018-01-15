@@ -53,6 +53,15 @@ public class ProductDetailsResource extends ResourceSupport  {
 		this.image = image;
 	}
 	
+	public String getSubtitle() {
+		return subtitle;
+	}
+
+	public void setSubtitle(String subtitle) {
+		this.subtitle = subtitle;
+	}
+
+	
 	public String getVersion() {
 		return version;
 	}
@@ -75,15 +84,6 @@ public class ProductDetailsResource extends ResourceSupport  {
 
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	@NotEmpty
-	public String getSubtitle() {
-		return subtitle;
-	}
-
-	public void setSubtitle(String subtitle) {
-		this.subtitle = subtitle;
 	}
 
 	public Boolean getFeatured() {
@@ -110,7 +110,6 @@ public class ProductDetailsResource extends ResourceSupport  {
 		this.attributes = attributes;
 	}
 
-	@NotEmpty
 	public String getAuthor() {
 		return author;
 	}

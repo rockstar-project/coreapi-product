@@ -22,4 +22,5 @@ public class ProductInfoResourceAssembler extends ResourceAssemblerSupport<Produ
 		
 		return templateResource;
 	}
+	
 }

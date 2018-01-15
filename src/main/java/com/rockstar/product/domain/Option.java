@@ -35,6 +35,9 @@ public class Option {
 	@Column(name="TITLE")
 	private String title;
 	
+	@Column(name="TAGS")
+	private String tags;
+	
 	@Column(name="VERSION")
 	private String version;
 	
@@ -95,6 +98,14 @@ public class Option {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getTags() {
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
 
 	@PrePersist

@@ -56,7 +56,7 @@ public class ProductController {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<ProductInfoResource>> getAllProducts() { 
+	public ResponseEntity<List<ProductInfoResource>> getProducts() { 
        List<ProductInfoResource> productResources = null;
        List<Product> products = this.productService.getAllProducts();
        productResources = this.productInfoResourceAssembler.toResources(products);
@@ -70,14 +70,15 @@ public class ProductController {
 			@RequestParam(name = "status", required = false) String status,
 			@RequestParam(name = "organization", required = false) String organization,
 			@PageableDefault(page = 0, size = 10, sort="title") Pageable pageable, 
-			PagedResourcesAssembler pageResourcesAssembler) {
+			PagedResourcesAssembler<Product> pageResourcesAssembler) {
 		
 		Page<Product> productsPage = null;
-		PagedResources<ProductInfoResource> productPagedResources = null;
+		PagedResources<ProductInfoResource> productInfoResourcePage = null;
 		
 		productsPage = this.productService.search(queryTerm, featured, status, organization, pageable);
-		productPagedResources = pageResourcesAssembler.toResource(productsPage);
-		return new ResponseEntity<PagedResources<ProductInfoResource>>(productPagedResources, HttpStatus.OK);
+		
+		productInfoResourcePage = pageResourcesAssembler.toResource(productsPage, this.productInfoResourceAssembler);
+		return new ResponseEntity<PagedResources<ProductInfoResource>>(productInfoResourcePage, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)

@@ -4,18 +4,14 @@ public abstract class BaseException extends RuntimeException {
 	
 	private static final long serialVersionUID = 2741718638609514681L;
 
-	private String code;
+	private String name;
 
-	public BaseException(String code, String message) {
+	public BaseException(String message, String name) {
 		super(message);
-		this.code = code;
-	}
-	
-	public String getError() {
-		return this.code;
+		this.name = name;
 	}
 	
 	public String getMessage() {
-		return String.format("%s.%sResource", this.code, super.getMessage());
+		return String.format("%s %s", this.name, super.getMessage());
 	}
 }
