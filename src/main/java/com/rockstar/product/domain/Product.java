@@ -36,8 +36,11 @@ public class Product {
 	@Column(name="FEATURED")
 	private Boolean featured;
 	
-	@Column(name="STATUS")
-	private String status;
+	@Column(name="STATE")
+	private String state;
+	
+	@Column(name="PRICE")
+	private String price;
 	
 	@Column(name="VISIBILITY")
 	private String visibility;
@@ -47,6 +50,9 @@ public class Product {
 	
 	@Column(name="IMAGE")
 	private String image;
+	
+	@Column(name="BLOG_URL")
+	private String blogUrl;
 	
 	@Column(name="AUTHOR")
 	private String author;
@@ -104,12 +110,28 @@ public class Product {
 		this.image = image;
 	}
 
-	public String getStatus() {
-		return status;
+	public String getBlogUrl() {
+		return blogUrl;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setBlogUrl(String blogUrl) {
+		this.blogUrl = blogUrl;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
 	}
 
 	public String getVisibility() {

@@ -16,7 +16,7 @@ public interface ProductService {
 	public Product createProduct(Product product);
 	public void updateProduct(Product product);
 	public void deleteProduct(String identifier);
-	public Page<Product> search(String query, Boolean featured, String status, String organization, Pageable pageRequest);
+	public Page<Product> search(ProductSearch productSearch, Pageable pageRequest);
 	
 	public List<Option> getOptions(String productId);
 	public Option getOption(String productId, String optionId);

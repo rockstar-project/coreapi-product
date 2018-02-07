@@ -7,6 +7,8 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -21,13 +23,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rockstar.product.domain.Attribute;
 import com.rockstar.product.domain.Option;
 import com.rockstar.product.domain.Product;
+import com.rockstar.product.service.ProductSearch;
 import com.rockstar.product.service.ProductService;
 
 @RestController
@@ -65,17 +67,13 @@ public class ProductController {
     }
 	
 	@RequestMapping(value="/search", method=RequestMethod.GET)
-	public HttpEntity<PagedResources<ProductInfoResource>> search(@RequestParam(name = "q", required = false) String queryTerm,
-			@RequestParam(name = "featured", required = false) Boolean featured,
-			@RequestParam(name = "status", required = false) String status,
-			@RequestParam(name = "organization", required = false) String organization,
+	public HttpEntity<PagedResources<ProductInfoResource>> search(ProductSearch productSearch,
 			@PageableDefault(page = 0, size = 10, sort="title") Pageable pageable, 
 			PagedResourcesAssembler<Product> pageResourcesAssembler) {
 		
 		Page<Product> productsPage = null;
 		PagedResources<ProductInfoResource> productInfoResourcePage = null;
-		
-		productsPage = this.productService.search(queryTerm, featured, status, organization, pageable);
+		productsPage = this.productService.search(productSearch, pageable);
 		
 		productInfoResourcePage = pageResourcesAssembler.toResource(productsPage, this.productInfoResourceAssembler);
 		return new ResponseEntity<PagedResources<ProductInfoResource>>(productInfoResourcePage, HttpStatus.OK);

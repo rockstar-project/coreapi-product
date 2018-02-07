@@ -13,10 +13,12 @@ public class ProductDetailsResource extends ResourceSupport  {
 	private String subtitle;
 	private String description;
 	private String image;
+	private String blogUrl;
 	private Boolean featured;
 	private String author;
 	private String version;
-	private String status;
+	private String state;
+	private String price;
 	private String visibility;
 	private String organization;
 	private DateTime createdAt;
@@ -61,6 +63,13 @@ public class ProductDetailsResource extends ResourceSupport  {
 		this.subtitle = subtitle;
 	}
 
+	public String getBlogUrl() {
+		return blogUrl;
+	}
+
+	public void setBlogUrl(String blogUrl) {
+		this.blogUrl = blogUrl;
+	}
 	
 	public String getVersion() {
 		return version;
@@ -69,15 +78,23 @@ public class ProductDetailsResource extends ResourceSupport  {
 	public void setVersion(String version) {
 		this.version = version;
 	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
 	
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
+
 	public String getDescription() {
 		return this.description;
 	}

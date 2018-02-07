@@ -12,22 +12,23 @@ import org.springframework.data.jpa.domain.Specification;
 
 public class ProductSearchSpecification implements Specification<Product> {
 	
-	private String keyword;
+	private String query;
 	private Boolean featured;
 	private String visibility;
-	private String status;
+	private String state;
 	private String author;
 	private String organization;
+	private String price;
 	
 	public ProductSearchSpecification() {
 	}
 
-	public String getKeyword() {
-		return keyword;
+	public String getQuery() {
+		return query;
 	}
 
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
+	public void setQuery(String query) {
+		this.query = query;
 	}
 
 	public Boolean getFeatured() {
@@ -38,12 +39,12 @@ public class ProductSearchSpecification implements Specification<Product> {
 		this.featured = featured;
 	}
 
-	public String getStatus() {
-		return status;
+	public String getState() {
+		return state;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setState(String state) {
+		this.state = state;
 	}
 
 	public String getVisibility() {
@@ -69,14 +70,22 @@ public class ProductSearchSpecification implements Specification<Product> {
 	public void setOrganization(String organization) {
 		this.organization = organization;
 	}
+	
+	public String getPrice() {
+		return price;
+	}
+
+	public void setPrice(String price) {
+		this.price = price;
+	}
 
 	public Predicate toPredicate(Root<Product> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
 		List<Predicate> predicateList = null;
 	 
 	    predicateList = new ArrayList<Predicate>();
 	    
-	    if (this.getKeyword() != null && !this.getKeyword().isEmpty()) {
-	        predicateList.add(builder.like(builder.lower(root.<String>get("title")), "%" + this.getKeyword() + "%"));
+	    if (this.getQuery() != null && !this.getQuery().isEmpty()) {
+	        predicateList.add(builder.like(builder.lower(root.<String>get("title")), "%" + this.getQuery() + "%"));
 	    }
 	    if (this.getFeatured() != null) {
 	        predicateList.add(builder.equal(root.get("featured"), this.getFeatured()));
@@ -87,8 +96,11 @@ public class ProductSearchSpecification implements Specification<Product> {
 	    if (this.getAuthor() != null && !this.getAuthor().isEmpty()) {
 	        predicateList.add(builder.equal(root.get("author"), this.getAuthor()));
 	    }
-	    if (this.getStatus() != null && !this.getStatus().isEmpty()) {
-	        predicateList.add(builder.equal(root.get("status"), this.getStatus()));
+	    if (this.getState() != null && !this.getState().isEmpty()) {
+	        predicateList.add(builder.equal(root.get("state"), this.getState()));
+	    }
+	    if (this.getPrice() != null && !this.getPrice().isEmpty()) {
+	        predicateList.add(builder.equal(root.get("price"), this.getPrice()));
 	    }
 	    if (this.getOrganization() != null) {
 	        predicateList.add(builder.equal(root.get("organization"), this.getOrganization()));

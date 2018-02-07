@@ -31,7 +31,9 @@ public class ProductDetailsResourceAssembler extends ResourceAssemblerSupport<Pr
 		productResource.setSubtitle(product.getSubtitle());
 		productResource.setDescription(product.getDescription());
 		productResource.setImage(product.getImage());
-		productResource.setStatus(product.getStatus());
+		productResource.setBlogUrl(product.getBlogUrl());
+		productResource.setState(product.getState());
+		productResource.setPrice(product.getPrice());
 		productResource.setVisibility(product.getVisibility());
 		productResource.setFeatured(product.getFeatured());
 		productResource.setAuthor(product.getAuthor());
@@ -72,7 +74,9 @@ public class ProductDetailsResourceAssembler extends ResourceAssemblerSupport<Pr
 		product.setSubtitle(productResource.getSubtitle());
 		product.setDescription(productResource.getDescription());
 		product.setImage(productResource.getImage());
-		product.setStatus(productResource.getStatus());
+		product.setBlogUrl(productResource.getBlogUrl());
+		product.setState(productResource.getState());
+		product.setPrice(productResource.getPrice());
 		product.setVisibility(productResource.getVisibility());
 		product.setFeatured(productResource.getFeatured());
 		product.setAuthor(productResource.getAuthor());

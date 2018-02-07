@@ -15,6 +15,7 @@ import org.springframework.util.StringUtils;
 
 import com.rockstar.product.service.NotFoundException;
 import com.rockstar.product.service.NotUniqueException;
+import com.rockstar.product.service.ProductSearch;
 import com.rockstar.product.service.ProductService;
 
 @Service
@@ -30,17 +31,20 @@ public class ProductServiceImpl implements ProductService {
 		return StreamSupport.stream(productIterable.spliterator(), false).collect(Collectors.toList());
 	}
 	
-	public Page<Product> search(String query, Boolean featured, String status, String organization, Pageable pageRequest) {
+	public Page<Product> search(ProductSearch productSearch, Pageable pageRequest) {
 		Page<Product> productsPage = null;
 		ProductSearchSpecification productSearchSpecification = null;
 
-		productSearchSpecification = new ProductSearchSpecification();
-		productSearchSpecification.setKeyword(query);
-		productSearchSpecification.setFeatured(featured);
-		productSearchSpecification.setStatus(status);
-		productSearchSpecification.setOrganization(organization);
-		productsPage = this.productRepository.findAll(productSearchSpecification, pageRequest);
-	
+		if (productSearch != null) {
+			productSearchSpecification = new ProductSearchSpecification();
+			productSearchSpecification.setQuery(productSearch.getQuery());
+			productSearchSpecification.setFeatured(productSearch.getFeatured());
+			productSearchSpecification.setVisibility(productSearch.getVisibility());
+			productSearchSpecification.setState(productSearch.getState());
+			productSearchSpecification.setOrganization(productSearch.getOrganization());
+			productSearchSpecification.setPrice(productSearch.getPrice());
+			productsPage = this.productRepository.findAll(productSearchSpecification, pageRequest);
+		}
 		return productsPage;
 	}
 	
@@ -74,8 +78,11 @@ public class ProductServiceImpl implements ProductService {
 		if (StringUtils.hasText(product.getSubtitle())) {
 			updatedProduct.setSubtitle(product.getSubtitle());
 		}
-		if (StringUtils.hasText(product.getStatus())) {
-			updatedProduct.setStatus(product.getStatus());
+		if (StringUtils.hasText(product.getState())) {
+			updatedProduct.setState(product.getState());
+		}
+		if (StringUtils.hasText(product.getPrice())) {
+			updatedProduct.setPrice(product.getPrice());
 		}
 		if (StringUtils.hasText(product.getVisibility())) {
 			updatedProduct.setVisibility(product.getVisibility());
@@ -85,6 +92,9 @@ public class ProductServiceImpl implements ProductService {
 		}
 		if (StringUtils.hasText(product.getImage())) {
 			updatedProduct.setImage(product.getImage());
+		}
+		if (StringUtils.hasText(product.getBlogUrl())) {
+			updatedProduct.setBlogUrl(product.getBlogUrl());
 		}
 		if (product.getFeatured() != null) {
 			updatedProduct.setFeatured(product.getFeatured());
