@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
@@ -25,7 +26,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.fasterxml.jackson.databind.exc.UnrecognizedPropertyException;
-import com.rockstar.product.service.NotFoundException;
 import com.rockstar.product.service.NotUniqueException;
 
 
@@ -160,3 +160,5 @@ public class ErrorHandler {
 		return this.messageSource.getMessage(error, arguments, LocaleContextHolder.getLocale());
 	}
 }
+
+
