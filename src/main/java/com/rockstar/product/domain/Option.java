@@ -35,6 +35,9 @@ public class Option {
 	@Column(name="TITLE")
 	private String title;
 	
+	@Column(name="FEATURED")
+	private Boolean featured;
+	
 	@Column(name="TAGS")
 	private String tags;
 	
@@ -98,6 +101,14 @@ public class Option {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public Boolean getFeatured() {
+		return featured;
+	}
+
+	public void setFeatured(Boolean featured) {
+		this.featured = featured;
 	}
 
 	public String getTags() {

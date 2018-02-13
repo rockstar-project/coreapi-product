@@ -21,7 +21,7 @@ public class OptionResourceAssembler extends ResourceAssemblerSupport<Option, Op
 	
 	public OptionResource toResource(Option option) {
 		OptionResource optionResource = null;
-		LinkBuilder templateLinkBuilder = this.entityLinks.linkForSingleResource(ProductDetailsResource.class, option.getProductId());
+		LinkBuilder templateLinkBuilder = this.entityLinks.linkForSingleResource(ProductResource.class, option.getProductId());
 		
 		if (option != null) {
 			optionResource = new OptionResource();
@@ -29,6 +29,7 @@ public class OptionResourceAssembler extends ResourceAssemblerSupport<Option, Op
 			optionResource.setValue(option.getValue());
 			optionResource.setTitle(option.getTitle());
 			optionResource.setImage(option.getImage());
+			optionResource.setFeatured(option.getFeatured());
 			if (!StringUtils.isEmpty(option.getTags())) {
 				optionResource.setTags(StringUtils.commaDelimitedListToStringArray(option.getTags()));
 			}
@@ -47,6 +48,7 @@ public class OptionResourceAssembler extends ResourceAssemblerSupport<Option, Op
 			option.setValue(optionResource.getValue());
 			option.setTitle(optionResource.getTitle());
 			option.setImage(optionResource.getImage());
+			option.setFeatured(optionResource.getFeatured());
 			if (!StringUtils.isEmpty(optionResource.getTags())) {
 				option.setTags(StringUtils.arrayToCommaDelimitedString(optionResource.getTags()));
 			}

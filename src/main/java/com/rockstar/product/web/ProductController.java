@@ -7,8 +7,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
-import org.apache.commons.lang.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -34,22 +32,21 @@ import com.rockstar.product.service.ProductService;
 
 @RestController
 @RequestMapping("/products")
-@ExposesResourceFor(ProductDetailsResource.class)
+@ExposesResourceFor(ProductResource.class)
 public class ProductController {
 	
 	@Inject private ProductService productService;
-	@Inject private ProductDetailsResourceAssembler productDetailsResourceAssembler;
-	@Inject private ProductInfoResourceAssembler productInfoResourceAssembler;
+	@Inject private ProductResourceAssembler productResourceAssembler;
 	@Inject private OptionResourceAssembler optionResourceAssembler;
 	@Inject private AttributeResourceAssembler attributeResourceAssembler;
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public HttpEntity<Void> createProduct(@RequestBody @Valid ProductDetailsResource productResource) {
+	public HttpEntity<Void> createProduct(@RequestBody @Valid ProductResource productResource) {
 		HttpHeaders headers = null;
 		Product newProduct = null;
 		Product updatedProduct = null;
 		
-		newProduct = this.productDetailsResourceAssembler.fromResource(productResource);
+		newProduct = this.productResourceAssembler.fromResource(productResource);
 		updatedProduct = this.productService.createProduct(newProduct);
 		headers = new HttpHeaders();
 		headers.setLocation(linkTo(ProductController.class).slash(updatedProduct.getId()).toUri());
@@ -58,33 +55,33 @@ public class ProductController {
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<ProductInfoResource>> getProducts() { 
-       List<ProductInfoResource> productResources = null;
+	public ResponseEntity<List<ProductResource>> getProducts() { 
+       List<ProductResource> productResources = null;
        List<Product> products = this.productService.getAllProducts();
-       productResources = this.productInfoResourceAssembler.toResources(products);
+       productResources = this.productResourceAssembler.toResources(products);
        
-       return new ResponseEntity<List<ProductInfoResource>>(productResources, HttpStatus.OK);
+       return new ResponseEntity<List<ProductResource>>(productResources, HttpStatus.OK);
     }
 	
 	@RequestMapping(value="/search", method=RequestMethod.GET)
-	public HttpEntity<PagedResources<ProductInfoResource>> search(ProductSearch productSearch,
+	public HttpEntity<PagedResources<ProductResource>> search(ProductSearch productSearch,
 			@PageableDefault(page = 0, size = 10, sort="title") Pageable pageable, 
 			PagedResourcesAssembler<Product> pageResourcesAssembler) {
 		
 		Page<Product> productsPage = null;
-		PagedResources<ProductInfoResource> productInfoResourcePage = null;
+		PagedResources<ProductResource> productResourcePage = null;
 		productsPage = this.productService.search(productSearch, pageable);
 		
-		productInfoResourcePage = pageResourcesAssembler.toResource(productsPage, this.productInfoResourceAssembler);
-		return new ResponseEntity<PagedResources<ProductInfoResource>>(productInfoResourcePage, HttpStatus.OK);
+		productResourcePage = pageResourcesAssembler.toResource(productsPage, this.productResourceAssembler);
+		return new ResponseEntity<PagedResources<ProductResource>>(productResourcePage, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public HttpEntity<ProductDetailsResource> getProduct(@PathVariable("id") String productId) {
+	public HttpEntity<ProductResource> getProduct(@PathVariable("id") String productId) {
 		Product product = this.productService.getProduct(productId);
-		ProductDetailsResource productResource = this.productDetailsResourceAssembler.toResource(product);
+		ProductResource productResource = this.productResourceAssembler.toResource(product);
 		
-		return new ResponseEntity<ProductDetailsResource>(productResource, HttpStatus.OK);
+		return new ResponseEntity<ProductResource>(productResource, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.PATCH)

@@ -13,17 +13,17 @@ import com.rockstar.product.domain.Option;
 import com.rockstar.product.domain.Product;
 
 @Component
-public class ProductDetailsResourceAssembler extends ResourceAssemblerSupport<Product, ProductDetailsResource> {
+public class ProductResourceAssembler extends ResourceAssemblerSupport<Product, ProductResource> {
 	
 	@Inject private OptionResourceAssembler optionResourceAssembler;
 	@Inject private AttributeResourceAssembler attributeResourceAssembler;
 	
-	public ProductDetailsResourceAssembler() {
-		super(ProductController.class, ProductDetailsResource.class);
+	public ProductResourceAssembler() {
+		super(ProductController.class, ProductResource.class);
 	}
 	
-	public ProductDetailsResource toResource(Product product) {
-		ProductDetailsResource productResource = null;
+	public ProductResource toResource(Product product) {
+		ProductResource productResource = null;
 		
 		productResource = this.createResourceWithId(product.getId(), product);
 		productResource.setName(product.getName());
@@ -65,7 +65,7 @@ public class ProductDetailsResourceAssembler extends ResourceAssemblerSupport<Pr
 		return productResource;
 	}
 	
-	public Product fromResource(ProductDetailsResource productResource) {
+	public Product fromResource(ProductResource productResource) {
 		Product product = null;
 		
 		product = new Product();

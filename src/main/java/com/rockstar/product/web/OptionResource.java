@@ -8,6 +8,7 @@ public class OptionResource extends ResourceSupport {
 	private String value;
 	private String title;
 	private String image;
+	private Boolean featured;
 	private String[] tags;
 	private String version;
 	
@@ -44,6 +45,14 @@ public class OptionResource extends ResourceSupport {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+	
+	public Boolean getFeatured() {
+		return featured;
+	}
+
+	public void setFeatured(Boolean featured) {
+		this.featured = featured;
 	}
 
 	public String[] getTags() {

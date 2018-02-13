@@ -6,7 +6,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.DateTime;
 import org.springframework.hateoas.ResourceSupport;
 
-public class ProductDetailsResource extends ResourceSupport  {
+public class ProductResource extends ResourceSupport  {
 	
 	private String name;
 	private String title;
@@ -25,7 +25,7 @@ public class ProductDetailsResource extends ResourceSupport  {
 	private List<AttributeResource> attributes;
 	private List<OptionResource> options;
 	
-	public ProductDetailsResource() {
+	public ProductResource() {
 	}
 
 	@NotEmpty

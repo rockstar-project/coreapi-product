@@ -20,7 +20,7 @@ public class AttributeResourceAssembler extends ResourceAssemblerSupport<Attribu
 	
 	public AttributeResource toResource(Attribute attribute) {
 		AttributeResource attributeResource = null;
-		LinkBuilder templateLinkBuilder = this.entityLinks.linkForSingleResource(ProductDetailsResource.class, attribute.getProductId());
+		LinkBuilder templateLinkBuilder = this.entityLinks.linkForSingleResource(ProductResource.class, attribute.getProductId());
 		
 		if (attribute != null) {
 			attributeResource = new AttributeResource();
