@@ -43,6 +43,10 @@ public class ProductServiceImpl implements ProductService {
 			productSearchSpecification.setState(productSearch.getState());
 			productSearchSpecification.setOrganization(productSearch.getOrganization());
 			productSearchSpecification.setPrice(productSearch.getPrice());
+			productSearchSpecification.setArchitecture(productSearch.getArchitecture());
+			productSearchSpecification.setSpecification(productSearch.getSpecification());
+			productSearchSpecification.setLanguage(productSearch.getLanguage());
+			productSearchSpecification.setFramework(productSearch.getFramework());
 			productsPage = this.productRepository.findAll(productSearchSpecification, pageRequest);
 		}
 		return productsPage;

@@ -7,6 +7,10 @@ public class ProductSearch {
 	 private String visibility;
 	 private String organization;
 	 private String price;
+	 private String architecture;
+	 private String language;
+	 private String framework;
+	 private String specification;
 	 
 	public ProductSearch() {
 	}
@@ -57,6 +61,38 @@ public class ProductSearch {
 
 	public void setPrice(String price) {
 		this.price = price;
+	}
+
+	public String getArchitecture() {
+		return architecture;
+	}
+
+	public void setArchitecture(String architecture) {
+		this.architecture = architecture;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+	public String getFramework() {
+		return framework;
+	}
+
+	public void setFramework(String framework) {
+		this.framework = framework;
+	}
+
+	public String getSpecification() {
+		return specification;
+	}
+
+	public void setSpecification(String specification) {
+		this.specification = specification;
 	}
 
 }
