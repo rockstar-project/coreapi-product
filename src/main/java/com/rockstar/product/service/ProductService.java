@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.rockstar.product.domain.Attribute;
+import com.rockstar.product.domain.Media;
 import com.rockstar.product.domain.Option;
 import com.rockstar.product.domain.Product;
 
@@ -17,6 +18,11 @@ public interface ProductService {
 	public void updateProduct(Product product);
 	public void deleteProduct(String identifier);
 	public Page<Product> search(ProductSearch productSearch, Pageable pageRequest);
+	
+	public List<Media> getMediaItems(String productId);
+	public Media getMedia(String productId, String mediaId);
+	public Media addMedia(Media media);
+	public void removeMedia(String productId, String mediaId);
 	
 	public List<Option> getOptions(String productId);
 	public Option getOption(String productId, String optionId);

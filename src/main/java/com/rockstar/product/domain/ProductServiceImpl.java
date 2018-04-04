@@ -25,6 +25,7 @@ public class ProductServiceImpl implements ProductService {
 	@Inject private ProductRepository productRepository;
 	@Inject private AttributeRepository attributeRepository;
 	@Inject private OptionRepository optionRepository;
+	@Inject private MediaRepository mediaRepository;
 	
 	public List<Product> getAllProducts() {
 		Iterable<Product> productIterable = this.productRepository.findAll();
@@ -100,6 +101,9 @@ public class ProductServiceImpl implements ProductService {
 		if (StringUtils.hasText(product.getBlogUrl())) {
 			updatedProduct.setBlogUrl(product.getBlogUrl());
 		}
+		if (StringUtils.hasText(product.getSchemaUrl())) {
+			updatedProduct.setSchemaUrl(product.getSchemaUrl());
+		}
 		if (product.getFeatured() != null) {
 			updatedProduct.setFeatured(product.getFeatured());
 		}
@@ -127,6 +131,47 @@ public class ProductServiceImpl implements ProductService {
 			throw new NotFoundException("product");
 		}
 		return product;
+	}
+	
+	public List<Media> getMediaItems(String productId) {
+		return this.mediaRepository.findByProductId(productId);
+	}
+
+	public Media getMedia(String productId, String mediaId) {
+		Media existingMedia = null;
+		
+		this.getProduct(productId);
+		
+		existingMedia = this.retrieveMediaById(mediaId);
+		
+		if (existingMedia == null) {
+			throw new NotFoundException("media");
+		}
+		
+		return existingMedia;
+	}
+	
+	@Transactional(readOnly=false)
+	public Media addMedia(Media media) {
+		Media  updatedMedia = null;
+		if (media != null) {
+			updatedMedia = this.mediaRepository.save(media);
+		}
+		return updatedMedia;
+	}
+	
+	@Transactional(readOnly=false)
+	public void removeMedia(String productId, String mediaId) {
+		this.getProduct(productId);
+		this.mediaRepository.delete(this.retrieveMediaById(mediaId));
+	}
+
+	private Media retrieveMediaById(String mediaId) {
+		Media media = this.mediaRepository.findOne(mediaId);
+		if (media == null) {
+			throw new NotFoundException("media");
+		}
+		return media;
 	}
 	
 	public List<Attribute> getAttributes(String productId) {

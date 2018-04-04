@@ -54,6 +54,9 @@ public class Product {
 	@Column(name="BLOG_URL")
 	private String blogUrl;
 	
+	@Column(name="SCHEMA_URL")
+	private String schemaUrl;
+	
 	@Column(name="AUTHOR")
 	private String author;
 	
@@ -74,6 +77,10 @@ public class Product {
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name="PRODUCT_ID")
 	private Set<Option> options;
+	
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="PRODUCT_ID")
+	private Set<Media> mediaItems;
 	
 	public Product() {
 	}
@@ -116,6 +123,14 @@ public class Product {
 
 	public void setBlogUrl(String blogUrl) {
 		this.blogUrl = blogUrl;
+	}
+
+	public String getSchemaUrl() {
+		return schemaUrl;
+	}
+
+	public void setSchemaUrl(String schemaUrl) {
+		this.schemaUrl = schemaUrl;
 	}
 
 	public String getState() {
@@ -180,6 +195,14 @@ public class Product {
 
 	public void setOptions(Set<Option> options) {
 		this.options = options;
+	}
+
+	public Set<Media> getMediaItems() {
+		return mediaItems;
+	}
+
+	public void setMediaItems(Set<Media> mediaItems) {
+		this.mediaItems = mediaItems;
 	}
 
 	public String getVersion() {

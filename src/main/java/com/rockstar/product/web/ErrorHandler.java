@@ -160,5 +160,3 @@ public class ErrorHandler {
 		return this.messageSource.getMessage(error, arguments, LocaleContextHolder.getLocale());
 	}
 }
-
-

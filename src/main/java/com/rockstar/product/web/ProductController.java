@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rockstar.product.domain.Attribute;
+import com.rockstar.product.domain.Media;
 import com.rockstar.product.domain.Option;
 import com.rockstar.product.domain.Product;
 import com.rockstar.product.service.ProductSearch;
@@ -39,6 +40,7 @@ public class ProductController {
 	@Inject private ProductResourceAssembler productResourceAssembler;
 	@Inject private OptionResourceAssembler optionResourceAssembler;
 	@Inject private AttributeResourceAssembler attributeResourceAssembler;
+	@Inject private MediaResourceAssembler mediaResourceAssembler;
 	
 	@RequestMapping(method=RequestMethod.POST)
 	public HttpEntity<Void> createProduct(@RequestBody @Valid ProductResource productResource) {
@@ -95,6 +97,41 @@ public class ProductController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void deleteProduct(@PathVariable("id") String productId) {
 		this.productService.deleteProduct(productId);
+	}
+	
+	@RequestMapping(value="/{id}/mediaitems", method=RequestMethod.GET)
+	public HttpEntity<List<MediaResource>> getProductMedias(@PathVariable("id") String productId) {
+		List<Media> productMedias = this.productService.getMediaItems(productId);
+		List<MediaResource> mediaResourceList = this.mediaResourceAssembler.toResources(productMedias);
+		return new ResponseEntity<List<MediaResource>>(mediaResourceList, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/{id}/mediaitems", method=RequestMethod.POST)
+	public HttpEntity<Void> createProductMedia(@PathVariable("id") String productId, @RequestBody MediaResource mediaResource) {
+		HttpHeaders headers = null;
+		Media updatedMedia = null;
+		Media media = this.mediaResourceAssembler.fromResource(mediaResource);
+		media.setProductId(productId);
+		updatedMedia = this.productService.addMedia(media);
+		headers = new HttpHeaders();
+		headers.setLocation(linkTo(ProductController.class).slash(productId).slash("mediaitems").slash(updatedMedia.getId().toString()).toUri());
+		
+		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(value="/{id}/mediaitems/{media_id}", method=RequestMethod.GET)
+	public HttpEntity<MediaResource> getProductMedia(@PathVariable("id") String productId, @PathVariable("media_id") String mediaId) {
+		MediaResource mediaResource = null;
+		mediaResource = this.mediaResourceAssembler.toResource(this.productService.getMedia(productId, mediaId));
+		return new ResponseEntity<MediaResource>(mediaResource, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/{id}/mediaitems/{media_id}", method=RequestMethod.DELETE)
+	public void deleteProductMedia(@PathVariable("id") String productId, @PathVariable("media_id") String mediaId) {
+		Media media = new Media();
+		media.setId(mediaId);
+		media.setProductId(productId);
+		this.productService.removeMedia(productId, mediaId);
 	}
 	
 	@RequestMapping(value="/{id}/attributes", method=RequestMethod.GET)

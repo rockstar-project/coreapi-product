@@ -21,7 +21,7 @@ public class OptionResourceAssembler extends ResourceAssemblerSupport<Option, Op
 	
 	public OptionResource toResource(Option option) {
 		OptionResource optionResource = null;
-		LinkBuilder templateLinkBuilder = this.entityLinks.linkForSingleResource(ProductResource.class, option.getProductId());
+		LinkBuilder linkBuilder = this.entityLinks.linkForSingleResource(ProductResource.class, option.getProductId());
 		
 		if (option != null) {
 			optionResource = new OptionResource();
@@ -34,7 +34,7 @@ public class OptionResourceAssembler extends ResourceAssemblerSupport<Option, Op
 				optionResource.setTags(StringUtils.commaDelimitedListToStringArray(option.getTags()));
 			}
 			optionResource.setVersion(option.getVersion());
-			optionResource.add(templateLinkBuilder.slash("options").slash(option.getId()).withSelfRel());
+			optionResource.add(linkBuilder.slash("options").slash(option.getId()).withSelfRel());
 		}
 		return optionResource;
 	}

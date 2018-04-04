@@ -20,7 +20,7 @@ public class AttributeResourceAssembler extends ResourceAssemblerSupport<Attribu
 	
 	public AttributeResource toResource(Attribute attribute) {
 		AttributeResource attributeResource = null;
-		LinkBuilder templateLinkBuilder = this.entityLinks.linkForSingleResource(ProductResource.class, attribute.getProductId());
+		LinkBuilder linkBuilder = this.entityLinks.linkForSingleResource(ProductResource.class, attribute.getProductId());
 		
 		if (attribute != null) {
 			attributeResource = new AttributeResource();
@@ -29,7 +29,7 @@ public class AttributeResourceAssembler extends ResourceAssemblerSupport<Attribu
 			attributeResource.setTitle(attribute.getTitle());
 			attributeResource.setImage(attribute.getImage());
 			attributeResource.setVersion(attribute.getVersion());
-			attributeResource.add(templateLinkBuilder.slash("attributes").slash(attribute.getId()).withSelfRel());
+			attributeResource.add(linkBuilder.slash("attributes").slash(attribute.getId()).withSelfRel());
 		}
 		return attributeResource;
 	}

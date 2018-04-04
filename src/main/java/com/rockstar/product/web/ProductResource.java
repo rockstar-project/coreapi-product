@@ -14,6 +14,7 @@ public class ProductResource extends ResourceSupport  {
 	private String description;
 	private String image;
 	private String blogUrl;
+	private String schemaUrl;
 	private Boolean featured;
 	private String author;
 	private String version;
@@ -24,6 +25,7 @@ public class ProductResource extends ResourceSupport  {
 	private DateTime createdAt;
 	private List<AttributeResource> attributes;
 	private List<OptionResource> options;
+	private List<MediaResource> mediaItems;
 	
 	public ProductResource() {
 	}
@@ -134,6 +136,14 @@ public class ProductResource extends ResourceSupport  {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
+	
+	public void setSchemaUrl(String schemaUrl) {
+		this.schemaUrl = schemaUrl;
+	}
+
+	public String getSchemaUrl() {
+		return schemaUrl;
+	}
 
 	public DateTime getCreatedAt() {
 		return createdAt;
@@ -157,6 +167,14 @@ public class ProductResource extends ResourceSupport  {
 
 	public void setOptions(List<OptionResource> options) {
 		this.options = options;
+	}
+
+	public List<MediaResource> getMediaItems() {
+		return mediaItems;
+	}
+
+	public void setMediaItems(List<MediaResource> mediaItems) {
+		this.mediaItems = mediaItems;
 	}
 
 }
