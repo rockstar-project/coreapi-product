@@ -24,6 +24,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	    this.jacksonObjectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
 	    this.jacksonObjectMapper.setSerializationInclusion(Include.NON_NULL);
 	    this.jacksonObjectMapper.registerModule(new JodaModule());
+	    this.jacksonObjectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 	    this.jacksonObjectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
 	}	
 }

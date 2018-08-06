@@ -1,14 +1,11 @@
 package com.rockstar.product.web;
 
-import java.util.Arrays;
-
 import javax.inject.Inject;
 
 import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.LinkBuilder;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import com.rockstar.product.domain.Media;
 
@@ -27,14 +24,12 @@ public class MediaResourceAssembler extends ResourceAssemblerSupport<Media, Medi
 		
 		if (media != null) {
 			mediaResource = new MediaResource();
+			mediaResource.setSlug(media.getSlug());
 			mediaResource.setTitle(media.getTitle());
 			mediaResource.setSrc(media.getSrc());
 			mediaResource.setThumbnail(media.getThumbnail());
 			mediaResource.setType(media.getType());
-			if (!StringUtils.isEmpty(media.getTags())) {
-				String[] tagsArray = StringUtils.commaDelimitedListToStringArray(media.getTags());
-				mediaResource.setTags(Arrays.asList(tagsArray));
-			}
+			mediaResource.setOrder(media.getOrder());
 			mediaResource.add(linkBuilder.slash("mediaitems").slash(media.getId()).withSelfRel());
 		}
 		return mediaResource;
@@ -45,13 +40,12 @@ public class MediaResourceAssembler extends ResourceAssemblerSupport<Media, Medi
 		
 		if (mediaResource != null) {
 			media = new Media();
+			media.setSlug(mediaResource.getSlug());
 			media.setTitle(mediaResource.getTitle());
 			media.setSrc(mediaResource.getSrc());
 			media.setType(mediaResource.getType());
+			media.setOrder(mediaResource.getOrder());
 			media.setThumbnail(mediaResource.getThumbnail());
-			if (mediaResource.getTags() != null && !mediaResource.getTags().isEmpty()) {
-				media.setTags(StringUtils.arrayToCommaDelimitedString(mediaResource.getTags().toArray()));
-			}
 		}
 		return media;
 	}

@@ -1,18 +1,25 @@
 package com.rockstar.product.web;
 
-import java.util.Collection;
-
 import org.springframework.hateoas.ResourceSupport;
 
 public class MediaResource extends ResourceSupport {
 	
+	private String slug;
 	private String title;
 	private String src;
 	private String thumbnail;
 	private String type;
-	private Collection<String> tags;
+	private Integer order;
 	
 	public MediaResource() {
+	}
+
+	public String getSlug() {
+		return slug;
+	}
+
+	public void setSlug(String slug) {
+		this.slug = slug;
 	}
 
 	public String getTitle() {
@@ -47,11 +54,11 @@ public class MediaResource extends ResourceSupport {
 		this.type = type;
 	}
 
-	public Collection<String> getTags() {
-		return tags;
+	public Integer getOrder() {
+		return order;
 	}
 
-	public void setTags(Collection<String> tags) {
-		this.tags = tags;
+	public void setOrder(Integer order) {
+		this.order = order;
 	}
 }

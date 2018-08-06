@@ -19,6 +19,9 @@ public class Media {
 	@Column(name="ID")
 	private String id;
 	
+	@Column(name="SLUG")
+	private String slug;
+	
 	@Column(name="TITLE")
 	private String title;
 	
@@ -31,8 +34,8 @@ public class Media {
 	@Column(name="MEDIA_TYPE")
 	private String type;
 	
-	@Column(name="TAGS")
-	private String tags;
+	@Column(name="DISPLAY_ORDER")
+	private Integer order;
 	
 	@JsonIgnore
 	@Column(name="PRODUCT_ID")
@@ -47,6 +50,14 @@ public class Media {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getSlug() {
+		return slug;
+	}
+
+	public void setSlug(String slug) {
+		this.slug = slug;
 	}
 
 	public String getTitle() {
@@ -80,13 +91,13 @@ public class Media {
 	public void setType(String type) {
 		this.type = type;
 	}
-
-	public String getTags() {
-		return tags;
+	
+	public Integer getOrder() {
+		return order;
 	}
 
-	public void setTags(String tags) {
-		this.tags = tags;
+	public void setOrder(Integer order) {
+		this.order = order;
 	}
 
 	public String getProductId() {
