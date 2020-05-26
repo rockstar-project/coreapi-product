@@ -1,0 +1,8 @@
+{
+  "name": "distributedtracing",
+  "title": "OpenZipkin Server",
+  "value": "zipkin",
+  "description":"Distributed tracing system with request visualization",
+  "image": "http://res.cloudinary.com/dzmrr9uj9/image/upload/zipkin_white.png",
+  "version": "0.0"
+}

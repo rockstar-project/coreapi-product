@@ -1,0 +1,8 @@
+{
+  "name": "datastore",
+  "title": "Elastic Search",
+  "value": "elasticsearch",
+  "image": "http://res.cloudinary.com/dzmrr9uj9/image/upload/elasticsearch.svg",
+  "featured": true,
+  "version": "5.2"
+}

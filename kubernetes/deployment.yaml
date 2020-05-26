@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coreapi-product
+  namespace: rockstar
+  labels:
+    app: coreapi-product
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: coreapi-product
+  template:
+    metadata:
+      labels:
+        app: coreapi-product
+    spec:
+      containers:
+      - name: coreapi-product
+        image: docker-registry.default.svc:5000/rockstar/coreapi-product:0.0.1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: docker
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:mysql://mysql:3306/rockstardb
+        - name: SPRING_DATASOURCE_USERNAME
+          value: rockstar
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: rockstar123
+        - name: SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI
+          value: https://rockstar.auth0.com/
+        - name: AUTH0_AUDIENCE
+          value: https://api.rock-star.io/

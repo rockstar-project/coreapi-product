@@ -1,0 +1,8 @@
+{
+  "name": "distributedtracing",
+  "title": "OpenTracing",
+  "value": "opentracing",
+  "description":"Consistent, expressive, vendor-neutral APIs for distributed tracing",
+  "image": "http://res.cloudinary.com/dzmrr9uj9/image/upload/opentracing.png",
+  "version": "0.0"
+}

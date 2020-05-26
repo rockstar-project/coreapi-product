@@ -1,0 +1,7 @@
+{
+  "name": "monitoringservice",
+  "title": "Prometheus",
+  "value": "prometheus",
+  "image": "http://res.cloudinary.com/dzmrr9uj9/image/upload/prometheus.png",
+  "version": "2.2.1"
+}

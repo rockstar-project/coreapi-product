@@ -1,0 +1,7 @@
+{
+  "name": "caas",
+  "title": "Docker Cloud",
+  "value": "dockercloud",
+  "image": "http://res.cloudinary.com/dzmrr9uj9/image/upload/dockercloud.png",
+  "version": "Hosted"
+}

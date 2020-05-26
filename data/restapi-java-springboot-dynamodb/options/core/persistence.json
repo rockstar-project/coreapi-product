@@ -1,0 +1,7 @@
+{
+  "name": "persistence",
+  "title": "Spring Data DynmoDb",
+  "value": "springdatadynamodb",
+  "image": "http://res.cloudinary.com/dzmrr9uj9/image/upload/spring-data.png",
+  "version": "0.0"
+}

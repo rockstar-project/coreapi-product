@@ -1,26 +1,25 @@
 package com.rockstar.product.web;
 
-import javax.inject.Inject;
-
-import org.springframework.hateoas.EntityLinks;
-import org.springframework.hateoas.LinkBuilder;
-import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.server.EntityLinks;
+import org.springframework.hateoas.server.LinkBuilder;
+import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
 import com.rockstar.product.domain.Media;
 
 @Component
-public class MediaResourceAssembler extends ResourceAssemblerSupport<Media, MediaResource> {
+public class MediaResourceAssembler extends RepresentationModelAssemblerSupport<Media, MediaResource> {
 	
-	@Inject private EntityLinks entityLinks;
+	@Autowired private EntityLinks entityLinks;
 	
 	public MediaResourceAssembler() {
 		super(ProductController.class, MediaResource.class);
 	}
 	
-	public MediaResource toResource(Media media) {
+	public MediaResource toModel(Media media) {
 		MediaResource mediaResource = null;
-		LinkBuilder linkBuilder = this.entityLinks.linkForSingleResource(ProductResource.class, media.getProductId());
+		LinkBuilder linkBuilder = this.entityLinks.linkForItemResource(ProductResource.class, media.getProductId());
 		
 		if (media != null) {
 			mediaResource = new MediaResource();

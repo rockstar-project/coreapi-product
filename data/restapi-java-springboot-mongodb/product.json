@@ -1,0 +1,16 @@
+{
+    "name": "restapi-java-springboot-mongodb",
+    "title": "Boot Your REST API with Spring Boot & mongodb",
+    "subtitle": "Java & Spring Boot",
+    "description": "",
+    "image": "http://res.cloudinary.com/dzmrr9uj9/image/upload/cover_600x800_blank.jpg",
+    "featured": true,
+    "visibility": "public",
+    "state": "publish",
+    "price": "free",
+    "blog_url":"http://blog.scottlogic.com/2016/11/22/spring-boot-and-mongodb.html",
+    "schema_url": "https://api.swaggerhub.com/apis/rockstar/Products/1.0.0/swagger.json",
+    "version": "1.0.0",
+    "author": "salsiddiqui0@gmail.com",
+    "organization": "rockstar"
+  }

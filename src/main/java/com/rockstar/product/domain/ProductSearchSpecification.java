@@ -15,6 +15,8 @@ import org.springframework.util.StringUtils;
 
 public class ProductSearchSpecification implements Specification<Product> {
 	
+	private static final long serialVersionUID = 1L;
+	
 	private String query;
 	private Boolean featured;
 	private String visibility;

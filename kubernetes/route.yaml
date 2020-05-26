@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Route
+metadata:
+  name: product-api
+spec:
+  host: api.rock-star.io
+  path: "/products"
+  to:
+    kind: Service
+    name: coreapi-product
+  tls:
+    termination: edge

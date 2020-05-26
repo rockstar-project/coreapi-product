@@ -1,0 +1,7 @@
+{
+  "name": "cloudprovider",
+  "title": "Amazon Web Services",
+  "value": "aws",
+  "image": "http://res.cloudinary.com/dzmrr9uj9/image/upload/aws.jpg",
+  "version": "Hosted"
+}

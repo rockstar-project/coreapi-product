@@ -1,0 +1,8 @@
+{
+  "slug": "cd",
+  "title": "Continuous Deployment",
+  "src": "http://res.cloudinary.com/dzmrr9uj9/image/upload/cd.png",
+  "thumbnail": "http://res.cloudinary.com/dzmrr9uj9/image/cd.png",
+  "type": "image",
+  "order": 3
+}

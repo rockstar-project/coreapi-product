@@ -1,0 +1,7 @@
+{
+  "name": "protocol",
+  "title": "REST HTTP",
+  "value": "http",
+  "image": "http://res.cloudinary.com/dzmrr9uj9/image/upload/resthttp.png",
+  "version": "1.x"
+}

@@ -1,0 +1,14 @@
+{
+    "name": "restapi-java-springboot-cassandra",
+    "title": "Develop REST API with Spring Boot & Cassandra",
+    "subtitle": "Java, Spring Boot & Cassandra",
+    "description": "",
+    "image": "http://res.cloudinary.com/dzmrr9uj9/image/upload/cover_600x800_blank.jpg",
+    "schema_url": "https://api.swaggerhub.com/apis/rockstar/Collections/1.0.0/swagger.json",
+    "featured": true,
+    "visibility": "public",
+    "version": "1.0.0",
+    "author": "salsiddiqui0@gmail.com",
+    "organization": "rockstar",
+    "state": "publish"
+  }

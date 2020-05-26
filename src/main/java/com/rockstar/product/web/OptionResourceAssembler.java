@@ -1,27 +1,26 @@
 package com.rockstar.product.web;
 
-import javax.inject.Inject;
-
-import org.springframework.hateoas.EntityLinks;
-import org.springframework.hateoas.LinkBuilder;
-import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.server.EntityLinks;
+import org.springframework.hateoas.server.LinkBuilder;
+import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import com.rockstar.product.domain.Option;
 
 @Component
-public class OptionResourceAssembler extends ResourceAssemblerSupport<Option, OptionResource> {
+public class OptionResourceAssembler extends RepresentationModelAssemblerSupport<Option, OptionResource> {
 	
-	@Inject private EntityLinks entityLinks;
+	@Autowired private EntityLinks entityLinks;
 	
 	public OptionResourceAssembler() {
 		super(ProductController.class, OptionResource.class);
 	}
 	
-	public OptionResource toResource(Option option) {
+	public OptionResource toModel(Option option) {
 		OptionResource optionResource = null;
-		LinkBuilder linkBuilder = this.entityLinks.linkForSingleResource(ProductResource.class, option.getProductId());
+		LinkBuilder linkBuilder = this.entityLinks.linkForItemResource(ProductResource.class, option.getProductId());
 		
 		if (option != null) {
 			optionResource = new OptionResource();

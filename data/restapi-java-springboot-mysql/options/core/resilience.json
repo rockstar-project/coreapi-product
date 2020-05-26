@@ -1,0 +1,7 @@
+{
+  "name": "resilience",
+  "title": "Hystrix",
+  "value": "hystrix",
+  "image": "http://res.cloudinary.com/dzmrr9uj9/image/upload/springcloud.png",
+  "version": "1.5.2"
+}

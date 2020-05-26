@@ -3,11 +3,8 @@ package com.rockstar.product.web;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
-import org.springframework.hateoas.EntityLinks;
-import org.springframework.hateoas.LinkBuilder;
-import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
 import com.rockstar.product.domain.Attribute;
@@ -16,25 +13,21 @@ import com.rockstar.product.domain.Option;
 import com.rockstar.product.domain.Product;
 
 @Component
-public class ProductResourceAssembler extends ResourceAssemblerSupport<Product, ProductResource> {
+public class ProductResourceAssembler extends RepresentationModelAssemblerSupport<Product, ProductResource> {
 	
-	@Inject private EntityLinks entityLinks;
-	
-	@Inject private OptionResourceAssembler optionResourceAssembler;
-	@Inject private AttributeResourceAssembler attributeResourceAssembler;
-	@Inject private MediaResourceAssembler mediaResourceAssembler;
+	@Autowired private OptionResourceAssembler optionResourceAssembler;
+	@Autowired private AttributeResourceAssembler attributeResourceAssembler;
+	@Autowired private MediaResourceAssembler mediaResourceAssembler;
 	
 	public ProductResourceAssembler() {
 		super(ProductController.class, ProductResource.class);
 	}
 	
-	public ProductResource toResource(Product product) {
+	public ProductResource toModel(Product product) {
 		ProductResource productResource = null;
-		LinkBuilder entityLinkBuilder = null;
 		
 		if (product != null) {
-			entityLinkBuilder = this.entityLinks.linkForSingleResource(ProductResource.class, product.getId());
-			productResource = this.createResourceWithId(product.getId(), product);
+			productResource = this.createModelWithId(product.getId(), product);
 			productResource.setName(product.getName());
 			productResource.setTitle(product.getTitle());
 			productResource.setSubtitle(product.getSubtitle());
@@ -56,7 +49,7 @@ public class ProductResourceAssembler extends ResourceAssemblerSupport<Product, 
 			if (product.getAttributes() != null && !product.getAttributes().isEmpty()) {
 				attributeResources = new ArrayList<AttributeResource>();
 				for (Attribute currentAttribute : product.getAttributes()) {
-					attributeResources.add(this.attributeResourceAssembler.toResource(currentAttribute));
+					attributeResources.add(this.attributeResourceAssembler.toModel(currentAttribute));
 				}
 				productResource.setAttributes(attributeResources);
 			}
@@ -66,7 +59,7 @@ public class ProductResourceAssembler extends ResourceAssemblerSupport<Product, 
 			if (product.getOptions() != null && !product.getOptions().isEmpty()) {
 				optionResources = new ArrayList<OptionResource>();
 				for (Option currentOption : product.getOptions()) {
-					optionResources.add(this.optionResourceAssembler.toResource(currentOption));
+					optionResources.add(this.optionResourceAssembler.toModel(currentOption));
 				}
 				productResource.setOptions(optionResources);
 			}
@@ -76,7 +69,7 @@ public class ProductResourceAssembler extends ResourceAssemblerSupport<Product, 
 			if (product.getMediaItems() != null && !product.getMediaItems().isEmpty()) {
 				mediaResources = new ArrayList<MediaResource>();
 				for (Media currentMedia : product.getMediaItems()) {
-					mediaResources.add(this.mediaResourceAssembler.toResource(currentMedia));
+					mediaResources.add(this.mediaResourceAssembler.toModel(currentMedia));
 				}
 				productResource.setMediaItems(mediaResources);
 			}

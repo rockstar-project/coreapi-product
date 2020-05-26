@@ -1,42 +1,53 @@
 package com.rockstar.product.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-
-import com.auth0.spring.security.api.JwtWebSecurityConfigurer;
+import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
+import org.springframework.security.oauth2.core.OAuth2TokenValidator;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtDecoders;
+import org.springframework.security.oauth2.jwt.JwtValidators;
+import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
-	private static Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
-	
-	@Value(value = "${auth0.audience}")
+	@Value("${auth0.audience}")
     private String audience;
-	
-    @Value(value = "${auth0.issuer}")
+
+    @Value("${spring.security.oauth2.resourceserver.jwt.issuer-uri}")
     private String issuer;
+    
+    @Bean
+    JwtDecoder jwtDecoder() {
+        NimbusJwtDecoder jwtDecoder = (NimbusJwtDecoder)
+                JwtDecoders.fromOidcIssuerLocation(issuer);
+
+        OAuth2TokenValidator<Jwt> audienceValidator = new AudienceValidator(audience);
+        OAuth2TokenValidator<Jwt> withIssuer = JwtValidators.createDefaultWithIssuer(issuer);
+        OAuth2TokenValidator<Jwt> withAudience = new DelegatingOAuth2TokenValidator<>(withIssuer, audienceValidator);
+
+        jwtDecoder.setJwtValidator(withAudience);
+
+        return jwtDecoder;
+    }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-    		logger.info("Configuring for Jwt token with issuer {} & audience {}", issuer, audience);
-    	
-        JwtWebSecurityConfigurer
-                .forRS256(audience, issuer)
-                .configure(http)
-                .csrf().disable()
-                .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/products/search/**").hasAuthority("search:products")
-                .antMatchers(HttpMethod.GET, "/products/**").hasAuthority("read:products")
-                .antMatchers(HttpMethod.POST, "/products/**").hasAuthority("create:products")
-                .antMatchers(HttpMethod.PUT, "/products/**").hasAuthority("update:products")
-                .antMatchers(HttpMethod.DELETE, "/products/**").hasAuthority("delete:products")
-                .anyRequest().authenticated();
+    	http.authorizeRequests()
+    		.mvcMatchers(HttpMethod.GET, "/products/search/**").hasAuthority("SCOPE_search:products")
+    		.mvcMatchers(HttpMethod.GET, "/products/**").hasAuthority("SCOPE_read:products")
+    		.mvcMatchers(HttpMethod.POST, "/products/**").hasAuthority("SCOPE_create:products")
+    		.mvcMatchers(HttpMethod.PUT, "/products/**").hasAuthority("SCOPE_update:products")
+    		.mvcMatchers(HttpMethod.DELETE, "/products/**").hasAuthority("SCOPE_delete:products")
+    		.and()
+    		.oauth2ResourceServer().jwt();
     }
 }

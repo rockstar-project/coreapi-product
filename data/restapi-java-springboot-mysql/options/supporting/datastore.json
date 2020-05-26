@@ -1,0 +1,8 @@
+{
+  "name": "datastore",
+  "title": "MySQL",
+  "value": "mysql",
+  "image": "https://icongr.am/devicon/mysql-original-wordmark.svg?size=200",
+  "featured": true,
+  "version": "5.7"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "security",
+  "title": "Auth0",
+  "value": "javasdk_auth0",
+  "description": "Auth0 Java client library",
+  "image": "http://res.cloudinary.com/dzmrr9uj9/image/upload/javasdk_auth03.png",
+  "version": "1.0.0-rc.3"
+}

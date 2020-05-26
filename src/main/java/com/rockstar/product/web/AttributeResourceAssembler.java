@@ -1,26 +1,26 @@
 package com.rockstar.product.web;
 
-import javax.inject.Inject;
-
-import org.springframework.hateoas.EntityLinks;
-import org.springframework.hateoas.LinkBuilder;
-import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.server.EntityLinks;
+import org.springframework.hateoas.server.LinkBuilder;
+import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
 import com.rockstar.product.domain.Attribute;
 
 @Component
-public class AttributeResourceAssembler extends ResourceAssemblerSupport<Attribute, AttributeResource> {
+public class AttributeResourceAssembler extends RepresentationModelAssemblerSupport<Attribute, AttributeResource> {
 	
-	@Inject private EntityLinks entityLinks;
+	@Autowired private EntityLinks entityLinks;
 	
 	public AttributeResourceAssembler() {
 		super(ProductController.class, AttributeResource.class);
 	}
 	
-	public AttributeResource toResource(Attribute attribute) {
+	public AttributeResource toModel(Attribute attribute) {
 		AttributeResource attributeResource = null;
-		LinkBuilder linkBuilder = this.entityLinks.linkForSingleResource(ProductResource.class, attribute.getProductId());
+		LinkBuilder linkBuilder = this.entityLinks.linkForItemResource(ProductResource.class, attribute.getProductId());
 		
 		if (attribute != null) {
 			attributeResource = new AttributeResource();
@@ -33,6 +33,10 @@ public class AttributeResourceAssembler extends ResourceAssemblerSupport<Attribu
 		}
 		return attributeResource;
 	}
+	
+	public CollectionModel<AttributeResource> toCollectionModel(Iterable<? extends Attribute> entities) {
+        return  super.toCollectionModel(entities);
+    }
 	
 	public Attribute fromResource(AttributeResource attributeResource) {
 		Attribute attribute = null;
@@ -47,5 +51,6 @@ public class AttributeResourceAssembler extends ResourceAssemblerSupport<Attribu
 		}
 		return attribute;
 	}
+
 }
 

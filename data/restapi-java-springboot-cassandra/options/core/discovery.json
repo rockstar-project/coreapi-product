@@ -1,0 +1,7 @@
+{
+  "name": "discovery",
+  "title": "Spring Cloud Eureka",
+  "value": "eureka",
+  "image": "http://res.cloudinary.com/dzmrr9uj9/image/upload/sdkjava_springcloud_neflix.png",
+  "version": "0.0"
+}

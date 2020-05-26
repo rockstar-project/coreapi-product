@@ -1,0 +1,7 @@
+{
+  "name": "registryservice",
+  "value": "eureka",
+  "title": "Eureka Server",
+  "image": "http://res.cloudinary.com/dzmrr9uj9/image/upload/netflix_eureka.png",
+  "version": "0.0"
+}

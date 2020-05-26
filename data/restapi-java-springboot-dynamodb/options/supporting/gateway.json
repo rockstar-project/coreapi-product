@@ -1,0 +1,7 @@
+{
+  "name": "gateway",
+  "title": "Zuul",
+  "value": "zuul",
+  "image": "http://res.cloudinary.com/dzmrr9uj9/image/upload/netflix_zuul.png",
+  "version": "0.0.0"
+}

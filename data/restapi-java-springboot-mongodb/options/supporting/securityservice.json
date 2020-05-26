@@ -1,0 +1,7 @@
+{
+  "name": "securityservice",
+  "value": "auth0",
+  "title": "Auth0",
+  "image": "http://res.cloudinary.com/dzmrr9uj9/image/upload/auth0_black.png",
+  "version": "Hosted"
+}

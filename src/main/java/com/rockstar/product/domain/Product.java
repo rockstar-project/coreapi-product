@@ -1,5 +1,6 @@
 package com.rockstar.product.domain;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 
@@ -12,9 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
 
 @Entity
 @Table(name="PRODUCT")
@@ -66,9 +64,8 @@ public class Product {
 	@Column(name="VERSION")
 	private String version;
 	
-	@Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
 	@Column(name="CREATED_AT")
-	private DateTime createdAt;
+	private LocalDateTime createdAt;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name="PRODUCT_ID")
@@ -229,11 +226,11 @@ public class Product {
 		this.author = author;
 	}
 	
-	public DateTime getCreatedAt() {
+	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(DateTime createdAt) {
+	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
 

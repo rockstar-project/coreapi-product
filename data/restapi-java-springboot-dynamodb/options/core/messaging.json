@@ -1,0 +1,7 @@
+{
+  "name": "messaging",
+  "title": "Message Connectivity",
+  "value": "springcloudrabbitmq",
+  "image": "http://res.cloudinary.com/dzmrr9uj9/image/upload/javasdk_rabbitmq.png",
+  "version": "0.0"
+}

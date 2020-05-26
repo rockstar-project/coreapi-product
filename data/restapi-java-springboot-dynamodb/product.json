@@ -1,0 +1,15 @@
+{
+    "name": "restapi-java-springboot-dynamodb",
+    "title": "Develop REST API with Spring Boot & DynamoDb",
+    "subtitle": "Java, Spring Boot & DynamoDb",
+    "description": "",
+    "image": "http://res.cloudinary.com/dzmrr9uj9/image/upload/cover_600x800_blank.jpg",
+    "featured": true,
+    "visibility": "public",
+    "state": "publish",
+    "price": "free",
+    "schema_url": "https://api.swaggerhub.com/apis/rockstar/Products/1.0.0/swagger.json",
+    "version": "1.0.0",
+    "author": "salsiddiqui0@gmail.com",
+    "organization": "rockstar"
+  }

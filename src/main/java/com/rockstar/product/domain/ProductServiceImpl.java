@@ -1,12 +1,9 @@
 package com.rockstar.product.domain;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
-import javax.inject.Inject;
-
-import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,14 +19,13 @@ import com.rockstar.product.service.ProductService;
 @Transactional(readOnly=true)
 public class ProductServiceImpl implements ProductService {
 	
-	@Inject private ProductRepository productRepository;
-	@Inject private AttributeRepository attributeRepository;
-	@Inject private OptionRepository optionRepository;
-	@Inject private MediaRepository mediaRepository;
+	@Autowired private ProductRepository productRepository;
+	@Autowired private AttributeRepository attributeRepository;
+	@Autowired private OptionRepository optionRepository;
+	@Autowired private MediaRepository mediaRepository;
 	
-	public List<Product> getAllProducts() {
-		Iterable<Product> productIterable = this.productRepository.findAll();
-		return StreamSupport.stream(productIterable.spliterator(), false).collect(Collectors.toList());
+	public Iterable<Product> getAllProducts() {
+		return this.productRepository.findAll();
 	}
 	
 	public Page<Product> search(ProductSearch productSearch, Pageable pageRequest) {
@@ -61,7 +57,7 @@ public class ProductServiceImpl implements ProductService {
 	public Product createProduct(Product product) {
 		Product updatedProduct = null;
 		if (product != null) {
-			product.setCreatedAt(DateTime.now());
+			product.setCreatedAt(LocalDateTime.now());
 			this.validateUniqueProduct(product);
 			updatedProduct = this.productRepository.save(product);
 		}
@@ -126,14 +122,14 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	private Product retrieveProductById(String productId) {
-		Product product = this.productRepository.findOne(productId);
-		if (product == null) {
+		Optional<Product> productOption = this.productRepository.findById(productId);
+		if (!productOption.isPresent()) {
 			throw new NotFoundException("product");
 		}
-		return product;
+		return productOption.get();
 	}
 	
-	public List<Media> getMediaItems(String productId) {
+	public Iterable<Media> getMediaItems(String productId) {
 		return this.mediaRepository.findByProductId(productId);
 	}
 
@@ -167,14 +163,14 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	private Media retrieveMediaById(String mediaId) {
-		Media media = this.mediaRepository.findOne(mediaId);
-		if (media == null) {
+		Optional<Media> mediaOption = this.mediaRepository.findById(mediaId);
+		if (!mediaOption.isPresent()) {
 			throw new NotFoundException("media");
 		}
-		return media;
+		return mediaOption.get();
 	}
 	
-	public List<Attribute> getAttributes(String productId) {
+	public Iterable<Attribute> getAttributes(String productId) {
 		return this.attributeRepository.findByProductId(productId);
 	}
 
@@ -218,14 +214,14 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	private Attribute retrieveAttributeById(String attributeId) {
-		Attribute attribute = this.attributeRepository.findOne(attributeId);
-		if (attribute == null) {
+		Optional<Attribute> attributeOption = this.attributeRepository.findById(attributeId);
+		if (attributeOption.isPresent()) {
 			throw new NotFoundException("attribute");
 		}
-		return attribute;
+		return attributeOption.get();
 	}
 	
-	public List<Option> getOptions(String productId) {
+	public Iterable<Option> getOptions(String productId) {
 		return this.optionRepository.findByProductId(productId);
 	}
 
@@ -269,11 +265,11 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	private Option retrieveOptionById(String optionId) {
-		Option option = this.optionRepository.findOne(optionId);
-		if (option == null) {
+		Optional<Option> optionOption = this.optionRepository.findById(optionId);
+		if (!optionOption.isPresent()) {
 			throw new NotFoundException("option");
 		}
-		return option;
+		return optionOption.get();
 	}
 }
 

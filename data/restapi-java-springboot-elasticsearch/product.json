@@ -1,0 +1,14 @@
+{
+    "name": "restapi-java-springboot-elasticsearch",
+    "title": "Craft Search API with Spring Boot & ElasticSearch",
+    "subtitle": "Java & Spring Boot",
+    "description": "",
+    "image": "http://res.cloudinary.com/dzmrr9uj9/image/upload/cover_600x800_blank.jpg",
+    "schema_url": "https://api.swaggerhub.com/apis/rockstar/Products/1.0.0/swagger.json",
+    "featured": true,
+    "visibility": "public",
+    "version": "1.0.0",
+    "author": "salsiddiqui0@gmail.com",
+    "organization": "rockstar",
+    "state": "publish"
+  }

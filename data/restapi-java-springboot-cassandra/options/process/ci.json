@@ -1,0 +1,7 @@
+{
+  "name": "ci",
+  "title": "Jenkins",
+  "value": "jenkins",
+  "image": "http://res.cloudinary.com/dzmrr9uj9/image/upload/jenkins-headshot.png",
+  "version": "Hosted"
+}

@@ -1,0 +1,8 @@
+{
+  "name": "tracing",
+  "title": "Spring Cloud Sleuth",
+  "value": "sleuth",
+  "description": "Spring Cloud library",
+  "image": "http://res.cloudinary.com/dzmrr9uj9/image/upload/springcloud.png",
+  "version": "0.0"
+}

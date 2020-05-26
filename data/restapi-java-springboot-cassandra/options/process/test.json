@@ -1,0 +1,8 @@
+{
+	"name": "test",
+	"title": "Postman",
+  "value": "postman",
+  "image": "http://res.cloudinary.com/dzmrr9uj9/image/upload/postman.png",
+	"tags": [ "devops" ],
+  "version": "5.5.0"
+}

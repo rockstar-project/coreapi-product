@@ -1,8 +1,8 @@
 package com.rockstar.product.web;
 
-import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.RepresentationModel;
 
-public class AttributeResource extends ResourceSupport {
+public class AttributeResource extends RepresentationModel<AttributeResource> {
 	
 	private String name;
 	private String value;

@@ -1,8 +1,8 @@
 package com.rockstar.product.web;
 
-import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.RepresentationModel;
 
-public class MediaResource extends ResourceSupport {
+public class MediaResource extends RepresentationModel<MediaResource> {
 	
 	private String slug;
 	private String title;

@@ -1,0 +1,8 @@
+{
+  "name": "security",
+  "title": "Amazon Cognito",
+  "value": "cognito",
+  "description": "Simple and Secure User Sign-Up, Sign-In, and Access Control",
+  "image": "http://res.cloudinary.com/dzmrr9uj9/image/upload/cognito.jpg",
+  "version": "Hosted"
+}

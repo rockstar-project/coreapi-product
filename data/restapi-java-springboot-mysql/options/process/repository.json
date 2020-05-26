@@ -1,0 +1,7 @@
+{
+  "name": "repository",
+  "title": "DockerHub",
+  "value": "dockerhub",
+  "image": "http://res.cloudinary.com/dzmrr9uj9/image/upload/dockerhub.png",
+  "version": "17.09"
+}

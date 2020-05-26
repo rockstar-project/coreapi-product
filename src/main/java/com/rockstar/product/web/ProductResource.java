@@ -1,12 +1,13 @@
 package com.rockstar.product.web;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
-import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.DateTime;
-import org.springframework.hateoas.ResourceSupport;
+import javax.validation.constraints.NotEmpty;
 
-public class ProductResource extends ResourceSupport  {
+import org.springframework.hateoas.RepresentationModel;
+
+public class ProductResource extends RepresentationModel<ProductResource>  {
 	
 	private String name;
 	private String title;
@@ -22,7 +23,7 @@ public class ProductResource extends ResourceSupport  {
 	private String price;
 	private String visibility;
 	private String organization;
-	private DateTime createdAt;
+	private LocalDateTime createdAt;
 	private List<AttributeResource> attributes;
 	private List<OptionResource> options;
 	private List<MediaResource> mediaItems;
@@ -145,11 +146,11 @@ public class ProductResource extends ResourceSupport  {
 		return schemaUrl;
 	}
 
-	public DateTime getCreatedAt() {
+	public LocalDateTime getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(DateTime createdAt) {
+	public void setCreatedAt(LocalDateTime createdAt) {
 		this.createdAt = createdAt;
 	}
 

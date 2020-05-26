@@ -1,8 +1,8 @@
 package com.rockstar.product.web;
 
-import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.RepresentationModel;
 
-public class OptionResource extends ResourceSupport {
+public class OptionResource extends RepresentationModel<OptionResource> {
 	
 	private String name;
 	private String value;

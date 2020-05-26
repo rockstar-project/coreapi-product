@@ -1,0 +1,7 @@
+{
+  "name": "repository",
+  "title": "Amazon ECR",
+  "value": "ecr",
+  "image": "http://res.cloudinary.com/dzmrr9uj9/image/upload/aws_black.png",
+  "version": "Hosted"
+}
